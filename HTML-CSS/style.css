@@ -1,0 +1,412 @@
+
+:root {
+  --background: #d3e2f8;
+  --background-secondary: #E3FFFF;
+  --background-tertiary: #a1b5f5;
+  --text-primary: #000;
+  --text-secondary: #555;
+  --text-tertiary: #888;
+  --border: #ccc;
+}
+
+
+* {box-sizing: border-box;} 
+
+
+
+
+/* Header */
+body > header {   
+  border-bottom: 1px solid var(--border); /*Hace una linea abajo de*/
+  background: var(--background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100vmax;
+ 
+  
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+
+}
+
+nav {
+  gap: 3rem;
+  display: flex;
+  margin: 0 auto;
+
+  a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.5s;
+    font-weight: 600;
+    
+
+    &:hover {
+      color: red;
+      
+    }
+  }
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+
+}
+
+body main {
+  padding: 1rem;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  header {
+
+     h1 {
+        color: var(--text-primary);
+        text-align: center;
+    }
+
+    h2 {
+        color: var(--text-primary);
+        text-align: center;
+    }
+
+    h3 {
+        color: var(--text-primary);
+        text-align: center;
+        text-wrap: balance;
+    }
+    
+}
+
+}
+
+.fecha-hoy{
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+
+    #fecha {
+        font-size: x-large;
+    }
+}
+
+.filtros-tabla {
+    width: 90vw;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    background-color: var(--background-secondary);
+    padding: 0.5rem; 
+    border-radius: 1rem;
+}
+
+
+.botones-filtros-tabla {
+    background-color: var(--background-tertiary);
+    display: flex;
+    border-radius: 0.5rem;
+}
+
+.filtros-tabla button {
+    
+    border-radius: 0.5rem;
+    border: none;
+    background-color: var(--background-tertiary);
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: end;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+
+
+}
+
+
+.btn-todos{
+    &:hover{
+        background-color: aqua;
+    }
+
+    &:focus{
+        background-color: aqua;
+    }
+
+}
+
+.btn-positivos{
+
+
+    &:hover{
+         background-color: rgb(4, 255, 4, 0.5);
+    }
+
+    &:focus{
+         background-color: rgb(4, 255, 4, 0.5);
+    }
+
+}
+
+.btn-negativos{
+    &:hover{
+         background-color: rgba(255, 107, 107, 0.5);
+    }
+
+    &:focus{
+         background-color: rgba(255, 107, 107, 0.5);
+    }
+
+}
+
+
+
+
+
+
+.dot-green {
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.dot-red {
+    height: 10px;
+    width: 10px;
+    background-color: #ff4d4d;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+form[role="search"] {
+    display: flex;
+    align-items: center; /* Esto alineará la lupa con el input */
+    gap: 0.5rem;
+}
+
+/* Y para apuntar a la lupa (svg) que está dentro del form: */
+form[role="search"] svg {
+    margin: 0; 
+}
+
+form[role="search"] > button:hover {
+    background-color: aqua;
+}
+
+.reg-habito{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    padding: 0.625rem 1.5rem;
+    margin-right: 4rem;
+    border-radius: 0.75rem;
+    background-color: var(--background-tertiary); 
+    color: var(--text-primary); 
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+    transition: all 0.2s ease;
+    gap: 0.5rem;
+
+    &:hover {
+        background-color: var(--background-secondary); 
+    /* La sombra se hace más grande y definida para dar efecto de "flotar" */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .add {
+    font-size: 1.4rem; /* Hacemos el + un poco más grande */
+    line-height: 1; /* Evita que el + desalinee el texto */
+    transition: transform 0.3s ease; /* Duración de la animación del giro */
+    display: inline-block; /* Necesario para que CSS permita rotar un span */
+    }
+
+    &:hover .add {
+        transform: rotate(90deg);
+    }
+
+}
+
+
+
+
+table {
+
+    margin-top: 0;
+    width: 100%;
+    border-collapse: collapse; /* CLAVE: Arregla los problemas de ancho y bordes */
+
+    th {
+        background-color: var(--background-tertiary);
+        padding: 0.5rem;
+        text-align: left;
+        border-radius: 0.5rem 0.5rem 0 0; /* Curvas solo en la parte superior */
+    }
+
+    td {
+        padding: 0.5rem;
+    }
+    
+  
+
+    .fila-habito {
+         
+         background-color: var(--background-secondary);
+         padding: rem;
+         text-align: left;
+    }
+}
+
+.fila-habito:hover {
+    background-color: #91ddeb;
+}
+
+.fila-habito.is-hidden {
+    display: none;
+}
+
+.grupo-form{
+    flex-direction: column;
+    display: flex;
+    margin-bottom: 0.5rem;
+
+ 
+}
+
+.grupo-form-activo{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.grupo-horas-form, .grupo-dias-form{
+    margin-bottom: 0.5rem;
+    flex-direction: column;
+    display: none;
+}
+.botones-form{
+    margin-top: 1rem;
+}
+
+dialog {
+    background-color: var(--background-secondary);
+    border-radius: 1rem;
+    border-color: #000;
+    font-weight: 400;
+
+}
+
+.botones-form{
+
+    justify-content: center;
+    display: flex;
+    gap: 0.2rem;
+
+#btn-cancelar-form {
+    background-color: #ff4d4d;
+    block-size: 2rem;
+    color: aliceblue;
+    border: 1px solid black;
+    border-radius: 1rem;
+
+    &:hover{
+        background-color: #f70000;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+#btn-registrar-form {
+    background-color: greenyellow;
+    color: black;
+    border-radius: 1rem;
+     &:hover{
+        background-color: #31f700;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+    }
+}
+}
+
+
+
+select, input {
+    width: 100%
+}
+
+
+.fecha-hoy{
+    display: flex;
+    
+    span {
+        margin-left: 0.1rem;
+        font-size: 25px;
+    }
+}
+
+.checkbox-habito {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+        width: 1.5rem;
+        height: 1.5rem;
+
+    }
+}
+
+.number-habito  {
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+        width: 3rem;
+        text-align: center;
+    }
+}
+
+#buscar-fecha {
+    display: flex;
+    
+
+
+    #desde-fecha{
+        margin-right: 0.2rem;
+        height: 1.5rem;
+    }
+     #hasta-fecha{
+        margin-right: 0.5rem;
+        height: 1.5rem;
+
+    }
+
+    
+
+    .btn-buscar:hover{
+               
+        background-color: cyan;
+    }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Control Panel</title>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='habitoshoy.css'>
+
+    <script type="module" src="../JAVASCRIPT/revisiondiariaDB.js"></script>
+</head>
+<body>
+  <header>
+    <h2>
+        Logo
+    </h2>
+    <nav>
+        <a href='principal.html'>Habitos Hoy</a>
+        <a href='registros.html'>Registros</a> 
+        <a href='historial.html'>Historial</a>
+        <a href="reporte.html">Reporte</a> 
+    </nav> 
+
+  </header>  
+
+    <main>
+    
+    <header>
+        <h1>Revision diaria de habitos</h1>
+        <h3>Monitorea el cumplimiento de tus habitos</h3>
+        <div class="fecha-hoy">
+        </div>
+    </header>
+
+
+    <section class="botones-globales">
+        
+    <button class="guardar-habitos">Guardar Habitos</button>
+
+<!-- boton que aparece una vez que se guarda el registro diario y al hacer click se elimina el ultima registro-->    
+     <button class="deshacer-guardado">Deshacer Guardado</button>
+
+    <button class="modificar-habitos">Modificar Habitos</button>
+
+    <button class="guardar-cambios">Guardar Cambios</button>
+    </section>
+
+    <section>
+        <div class="filtros-tabla">
+        <div class="botones-filtros-tabla" >
+            <button  class="btn-todos" value="">Todos</button>
+            <button class="btn-positivos" value="Positivo">
+             <span class="dot-green"></span>
+                Habitos positivos
+            </button>
+
+            <button class="btn-negativos" value="Negativo">
+                <span class="dot-red"></span>
+                Habitos negativos
+            </button>
+
+        </div>
+        <form class="form-busqueda" role="search" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+         </svg>
+         <input id="search-habito" type="text" placeholder="Buscar habito..." aria-label="Buscar habito">
+         <button id="btn-buscar" type="submit">Buscar</button>
+
+        </form>
+        </div>
+        
+        <table>
+            
+            <thead> 
+                <th>Nombre del habito</th>
+                <th>Tipo</th>
+                <th>Meta de hoy</th>
+                <th>Realizado</th>
+                <th>Porcentaje semanal</th>
+            </thead>   
+
+            <tbody class="tabla-diaria">
+
+            </tbody>
+
+        </table>
+        </section>
+
+        
+
+   </main>
+
+
+
+
+  
+
+
+
+
+
+    
+</body>
+</html>

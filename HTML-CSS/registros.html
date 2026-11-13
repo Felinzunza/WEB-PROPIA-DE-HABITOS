@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang='es'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Control Panel</title>
+    <link rel='stylesheet' href='style.css'>
+    <script type="module">
+
+        const dialog = document.getElementById('registro-dialog');
+        const openDialogButton = document.querySelector('.reg-habito');
+
+        openDialogButton.addEventListener('click', () => {
+            dialog.showModal();
+        });
+
+    </script>
+    <script type="module" src="../JAVASCRIPT/regHabitosDB.js"></script>
+</head>
+
+<body>
+    <header>
+        <h2>
+            Logo
+        </h2>
+        <nav>
+            <a href='principal.html'>Habitos Hoy</a>
+            <a href='registros.html'>Registros</a>
+            <a href='historial.html'>Historial</a>
+            <a href="reporte.html">Reporte</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <header>
+
+            <h1>Registro de habitos</h1>
+            <h3>Administra los parámetros base, umbrales y metas semanales y diarias para sincronizar la batería de
+                ejecución cotidiana.</h3>
+
+        </header>
+
+        <button class="reg-habito">
+            <span class="add">+</span> Registrar
+        </button>
+
+        <dialog id="registro-dialog">
+            <form method="dialog">
+                <h1>Registrar habito</h1>
+
+                <div class="grupo-form">
+                    <label for="habito">Habito:</label>
+                    <input type="text" id="habito" name="habito" required>
+                </div>
+                <div class="grupo-form">
+                    <label for="tipo">¿El habito es positivo o negativo?</label>
+                    <select id="tipo" required>
+                        <option></option>
+                        <option value="Positivo">Positivo</option>
+                        <option value="Negativo">Negativo</option>
+                    </select>
+                </div>
+                <div class="grupo-form">
+                    <label for="unidad">Unidad de habito</label>
+                    <select id="unidad" required>
+                        <option value=""></option>
+                        <option value="Horas">Horas</option>
+                        <option value="Dias">Dias</option>
+                    </select>
+                </div>
+                <div class="grupo-dias-form">
+                    <label for="sitBase_dia">Situación Base</label>
+                    <input id="sitBase_dia" type="number" step="1">
+                </div>
+                <div class="grupo-horas-form">
+                    <label for="sitBase_hora">Situación Base</label>
+                    <input id="sitBase_hora" type="number" step="0.1">
+                </div>
+                <div class="grupo-dias-form">
+                    <label for="metSemanal_dia">Meta Semanal</label>
+                    <input id="metSemanal_dia" type="number" step="1">
+                </div>
+                <div class="grupo-horas-form">
+                    <label for="metSemanal_hora">Meta Semanal</label>
+                    <input id="metSemanal_hora" type="number" step="0.1">
+                </div>
+                <div class="grupo-horas-form">
+                    <label for="metDiaria">Meta Diaria</label>
+                    <input id="metDiaria" type="number" step="0.1">
+                </div>
+                 <div class="grupo-form-activo">
+                    <span>¿El habito se encuentra activo?</span>
+                    <input type="checkbox" id="activo" name="activo" value="Si" checked>
+                    <label for="activo">Si</label> 
+
+                </div>
+                <input type="hidden" id="fechaReg">
+                <div class="botones-form">
+                    <button type="submit" id="btn-registrar-form">Registrar</button>
+                    <button type="submit" id="btn-guardar-edicion" style="display: none;">Guardar Cambios</button>
+                    <button type="button" id="btn-cancelar-form" formnovalidate>Cancelar</button>
+                </div>
+            </form>
+        </dialog>
+
+        <section>
+            <div class="filtros-tabla">
+                <div class="botones-filtros-tabla">
+                    <button class="btn-todos" value="">Todos</button>
+                    <button class="btn-positivos" value="Positivo">
+                        <span class="dot-green"></span>
+                        Habitos positivos
+                    </button>
+
+                    <button class="btn-negativos" value="Negativo">
+                        <span class="dot-red"></span>
+                        Habitos negativos
+                    </button>
+
+                </div>
+                <form role="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                    <input type="text" id="buscarHabito" placeholder="Buscar habito..." aria-label="Buscar habito">
+                    <button id="btn-buscar" type="submit">Buscar</button>
+
+                </form>
+
+            </div>
+        </section>
+
+        <table>
+
+            <thead>
+                <th>id Rutina</th>
+                <th>Habito</th>
+                <th>Tipo</th>
+                <th>Unidad</th>
+                <th>Situación Base</th>
+                <th>Meta Semanal</th>
+                <th>Meta Diaria</th>
+                <th>Fecha Reg.</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </thead>
+
+            <tbody class="tabla-habitos">
+
+            </tbody>
+           
+
+
+        </table>
+
+
+
+    </main>
+
+
+
+</body>
+
+</html>

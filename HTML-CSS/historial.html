@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <h2>
+            Logo
+        </h2>
+        <nav>
+            <a href='principal.html'>Habitos Hoy</a>
+            <a href='registros.html'>Registros</a>
+            <a href='historial.html'>Historial</a>
+            <a href="reporte.html">Reporte</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <header>
+            <h1>Historial De Habitos</h1>
+            <h3>Detalle de registros de habitos por semana</h3>
+
+        </header>
+
+        <seccion>
+            <div class="filtros-tabla">
+                <form>
+                    <label for="fecha">Elige una fecha:</label>
+                    <div id="buscar-fecha" style="margin-top: 0.5rem;">
+                        <div id="desde-fecha">
+                            <span>Desde: </span>
+
+                            <input type="date" name="fecha">
+
+                        </div>
+                        <div id="hasta-fecha">
+                            <span>Hasta: </span>
+                            <input type="date" name="fecha">
+                        </div>
+                        <button class="btn-buscar" style="margin-top: 1rem;">Buscar</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </seccion>
+
+        <section>
+
+            <table class="tabla-diaria">
+                <thead>
+                    <th>Rango de fechas</th>
+                    <th>Alcanzado</th>
+                    <th>Detalle</th>
+                </thead>
+                <tr class="fila-habito">
+                    <td>12-10-26 | 19-10-26</td>
+                    <td><progress value="80" , max="100"></progress><span>80%</span></td>
+                    <td>
+                        <a href='./detalleHistorial.html'>
+                            <button>
+                                Ver detalle
+                            </button>
+                        </a>
+                    </td>
+
+                </tr>
+                <tr class="fila-habito">
+                    <td>05-10-26 | 11-10-26</td>
+                    <td><progress value="70" , max="100"></progress><span>70%</span></td>
+
+                    <td><a href='./detalleHistorial.html'>
+                            <button>
+                                Ver detalle
+                            </button>
+                        </a>
+                    </td>
+
+                </tr>
+                <tr class="fila-habito">
+                    <td>28-09-26 | 04-10-26</td>
+                    <td><progress value="50" , max="100"></progress><span>50%</span></td>
+
+                   <a href='./detalleHistorial.html'>
+                            <button>
+                                Ver detalle
+                            </button>
+                        </a>
+
+                </tr>
+
+            </table>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

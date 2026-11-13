@@ -1,0 +1,94 @@
+[
+  {
+    "idHabito": "b01",
+    "data": {
+      "habito": "Programar",
+      "tipo": "Positivo"
+    },
+    "unidad": "Horas",
+    "sitBase": 2.1,
+    "metSem": 5.0,
+    "metDia": 1.0,
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+  },
+  {
+    "idHabito": "b02",
+    "data": {
+      "habito": "Salir a correr / Ir al cerro",
+      "tipo": "Positivo"
+    },
+    "unidad": "Días",
+    "sitBase": 0,
+    "metSem": 3,
+    "metDia": "Dentro del día",
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+  },
+  {
+    "idHabito": "b03",
+    "data": {
+      "habito": "Ensayar con el bajo",
+      "tipo": "Positivo"
+    },
+    "unidad": "Horas",
+    "sitBase": 1.5,
+    "metSem": 4.0,
+    "metDia": 1.0,
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+  },
+  {
+    "idHabito": "b04",
+    "data": {
+      "habito": "Practicar teclado",
+      "tipo": "Positivo"
+    },
+    "unidad": "Horas",
+    "sitBase": 0.5,
+    "metSem": 2.5,
+    "metDia": 0.5,
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+    
+  },
+  {
+    "idHabito": "b05",
+    "data": {
+      "habito": "Estar la mayor parte del día en casa",
+      "tipo": "Negativo"
+    },
+    "unidad": "Días",
+    "sitBase": 4,
+    "metSem": 2,
+    "metDia": "No hacerlo hoy",
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+  },
+  {
+    "idHabito": "b06",
+    "data": {
+      "habito": "Ver pantalla 1h antes de dormir",
+      "tipo": "Negativo"
+    },
+    "unidad": "Días",
+    "sitBase": 6,
+    "metSem": 1,
+    "metDia": "No hacerlo hoy",
+    "fechaReg": "10-10-2026",
+    "activo": "Sí"
+  },
+  {
+    "idHabito": "b07",
+    "data": {
+      "habito": "Instagram",
+      "tipo": "Negativo"
+    },
+    "unidad": "Horas",
+    "sitBase": 2.5,
+    "metSem": 1.0,
+    "metDia": 0.5,
+    "fechaReg": "10-10-2026",
+    "activo": "No"
+  }
+]

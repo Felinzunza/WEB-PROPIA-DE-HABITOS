@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+    <h2>
+        Logo
+    </h2>
+    <nav>
+        <a href='principal.html'>Habitos Hoy</a>
+        <a href='registros.html'>Registros</a> 
+        <a href='historial.html'>Historial</a>
+        <a href="reporte.html">Reporte</a> 
+    </nav> 
+
+    
+
+    </header>
+
+
+    <main>
+
+        <header>
+
+            <h1>Detalle de la semana</h1>
+            <h2>12-10-26 | 19-10-26</h2>
+
+        </header>
+
+        <!-- En tu nuevo archivo detalle-semana.html -->
+<section class="contenedor-matriz">
+    <!-- Puedes reutilizar tus clases para mantener tu estilo celeste/transparente -->
+    <table class="tabla-diaria"> 
+        <thead>
+            <tr>
+                <th>Hábito</th>
+                <th>Tipo</th>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mié</th>
+                <th>Jue</th>
+                <th>Vie</th>
+                <th>Sáb</th>
+                <th>Dom</th>
+                <th>Total</th>
+                <th>Pila Semanal</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpo-matriz-semanal">
+            <!-- Ejemplo de cómo se vería una fila generada -->
+            <tr class="fila-habito">
+                <td>Programar</td>
+                <td>Positivo</td>
+                
+                <!-- Días de la semana -->
+                <td>2h</td>       <!-- Lun -->
+                <td>-</td>        <!-- Mar -->
+                <td>1.5h</td>     <!-- Mié -->
+                <td>-</td>        <!-- Jue -->
+                <td>3h</td>       <!-- Vie -->
+                <td>-</td>        <!-- Sáb -->
+                <td>-</td>        <!-- Dom -->
+                
+                <td>6.5h</td>     <!-- Total -->
+                <td>80%</td>      <!-- Pila Semanal -->
+            </tr>
+            
+            <tr class="fila-habito">
+                <td>Salir a correr</td>
+                <td>Positivo</td>
+                <td>Sí</td>
+                <td>-</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>-</td>
+                <td>4 días</td>
+                <td>100%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+    </main>
+    
+</body>
+</html>

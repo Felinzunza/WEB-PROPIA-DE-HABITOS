@@ -1,0 +1,82 @@
+[
+  {
+    "meta_de_hoy": "1 hora",
+    "registro": "2,0 h",
+    "pila_semanal": "2 / 5 h",
+    "data": {
+        "habito": "Programar",
+        "tipo":"Positivo"
+    }
+    
+  },
+  {
+    "meta_de_hoy": "Dentro del día",
+    "registro": "No",
+    "pila_semanal": "0 / 7 días",
+    "data": {
+            "habito": "Salir a correr / Ir al cerro",
+
+        "tipo":"Positivo"
+    }
+  },
+  {
+    "meta_de_hoy": "Dentro del día",
+    "registro": "Sí",
+    "pila_semanal": "1 / 7 días",
+    "data": {
+            "habito": "Pasar el tiempo con sobrinos",
+
+        "tipo":"Positivo"
+    }
+  },
+  {
+    "meta_de_hoy": "0.5 horas",
+    "registro": "1,0 h",
+    "pila_semanal": "1 / 3.5 h",
+    "data": {
+            "habito": "Leer",
+
+        "tipo":"Positivo"
+    }
+  },
+  {
+    "meta_de_hoy": "2.1 horas",
+    "registro": "1,0 h",
+    "pila_semanal": "1 / 15 h",
+    "data": {
+            "habito": "Instagram",
+
+        "tipo":"Negativo"
+    }
+  },
+  {
+    "meta_de_hoy": "0.42 horas",
+    "registro": "0,3 h",
+    "pila_semanal": "0.3 / 7 h",
+    "data": {
+            "habito": "Pornografía",
+
+        "tipo":"Negativo"
+    }
+  },
+  {
+    "meta_de_hoy": "No hacerlo hoy",
+    "registro": "No",
+    "pila_semanal": "0 / 3 días",
+    "data": {
+            "habito": "Estar la mayor parte del día en casa",
+
+        "tipo":"Negativo"
+    }
+  },
+  {
+    "meta_de_hoy": "No hacerlo hoy",
+    "registro": "Sí",
+    "pila_semanal": "1 / 7 días",
+    "data": {
+            "habito": "Ver pantalla 1h antes de dormir",
+
+        "tipo":"Negativo"
+    }
+  }
+]

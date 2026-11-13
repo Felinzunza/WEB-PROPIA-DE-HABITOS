@@ -1,0 +1,37 @@
+.guardar-habitos, .modificar-habitos, .deshacer-guardado, .guardar-cambios {
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--background-tertiary); 
+    color: var(--text-primary); 
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+    transition: all 0.2s ease;
+    gap: 0.5rem;
+
+    &:hover {
+        background-color: var(--background-secondary); 
+        /* La sombra se hace más grande y definida para dar efecto de "flotar" */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    } 
+
+}
+
+
+input[type="number"] {
+    width: 48px !important;
+    min-width: 48px !important;
+    padding: 2px 4px;
+    box-sizing: border-box;
+}
+
+.deshacer-guardado {
+    display: none; /* Nace oculto */
+}
+
+.botones-globales {
+    display: flex;
+    align-self: flex-end;
+    gap: 0.5rem
+}
