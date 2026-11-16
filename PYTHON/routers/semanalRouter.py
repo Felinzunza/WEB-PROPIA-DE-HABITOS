@@ -1,9 +1,8 @@
-from bson import ObjectId
 from fastapi import APIRouter, HTTPException, status
-
-from PYTHON.db.schemas.semanalSchema import semanales_schema
-from db.models.detSemanaModel import DetSemanaModel
-from db.models.semanalModel import SemanaModel
+from bson import ObjectId
+from datetime import datetime
+from db.schemas.semanalSchema import semanales_schema, semanal_schema
+from db.models.semanalModel import historialSemanal
 
 from db.client import db_client
 
@@ -14,67 +13,98 @@ router = APIRouter(prefix="/semanal",
                    responses={status.HTTP_404_NOT_FOUND: 
                               {"message": "No encontrado"}}) 
 
-def searchFechas(inicio: str, fin: str):
-    fechas = db_client.local.semanal.find({"fechaInicio": {"$gte": inicio}, 
-                                           "fechaFin": {"$lte": fin}})
-    if not fechas:
-        return None
-    return semanales_schema(fechas)
-
-
-
-@router.get("", status_code=200)
-async def obtenerRegistrosSemanal():
-    semanal = semanales_schema(db_client.local.semanal.find())
+def searchSemana(field: str, key:str):
+    semanal = db_client.local.semanal.find_one({field: key})
     if not semanal:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="No hay registros semanal")
-    return semanal;
+        return None
+    return semanal_schema(semanal)
+  
 
-@router.get("/rangos", status_code=200)
+
+
+@router.get("", status_code=status.HTTP_200_OK)
+async def obtenerRegistrosSemanal():
+    semanales = semanales_schema(db_client.local.semanal.find())
+
+    if not semanales:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="No hay registros semanales")
+
+    return semanales
+
+@router.get("/rangos", status_code=status.HTTP_200_OK)
 async def obtenerRegistroSemanalxRangoSemanal(fechaInicio: str, fechaFin: str):
-  rangos =  searchFechas(fechaInicio, fechaFin)
+    formato_fecha = "%d-%m-%Y"
 
-  list_rangos = list(rangos)
+    try:
+        dt_inicio = datetime.strptime(fechaInicio, formato_fecha)
+        dt_fin = datetime.strptime(fechaFin, formato_fecha)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El formato de fecha debe ser dd-mm-yyyy (ejemplo: 28-09-2026)"
+        )
 
-  if not list_rangos:
-      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="No hay registros para el rango de fechas especificado")
-  return list_rangos
+    if dt_inicio > dt_fin:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La fecha de inicio no puede ser mayor a la fecha de fin"
+        )
+
+    todos_registros = db_client.local.semanal.find()
+    list_rangos = [
+        reg for reg in todos_registros
+        if dt_inicio <= datetime.strptime(reg["fechaInicio"], formato_fecha)
+        and datetime.strptime(reg["fechaFin"], formato_fecha) <= dt_fin
+    ]
+
+    if not list_rangos:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay registros para el rango de fechas especificado"
+        )
+
+    return semanales_schema(list_rangos)
 
 
-
-@router.post("", status_code=201)
-async def guardarRegistroDiario(diario: Diario):
-  
-  
-
-@router.put("/fecha/{fechaReg}", status_code=status.HTTP_200_OK)
-async def modificarRegistroDiario(fechaReg: str, diario: Diario):
-
-    diario_dict = diario.model_dump(exclude=("idDiario"))
-
-    diarioMod = db_client.local.diarios.find_one_and_update({"fechaReg": fechaReg},
-                                                            {"$set": diario_dict})
-
-    if not diarioMod:
+@router.get("/semana/{idSemanal}", status_code=status.HTTP_200_OK)
+async def obtenerDetalleSemanal(idSemanal: str):
+    detalle = db_client.local.semanal.find_one({"_id": ObjectId(idSemanal)})
+    if not detalle:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="No se ha encontrado el registro")
+                            detail="No hay registro para el id especificado")
+    #Necesito obtener el detalle de la semana al hacer click en el boton de ver detalle, para eso necesito el id del registro semanal y con eso buscar en la base de datos el registro correspondiente y devolverlo al front-end
 
-    return diario_schema(diarioMod)
+    return semanal_schema(detalle)
+    
+
+
+@router.post("", status_code=status.HTTP_201_CREATED)
+async def guardarRegistroSemanal(semanal: historialSemanal):
+
+    if searchSemana("fechaInicio", semanal.fechaInicio) is not None:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail="Ya se guardo un registro para esa semana")
+
+    semanal_dict = semanal.model_dump()
+    resultado = db_client.local.semanal.insert_one(semanal_dict)
+
+    new_semanal = semanal_schema(
+        db_client.local.semanal.find_one({"_id": resultado.inserted_id})
+    )
+
+    return new_semanal
 
 
 
-@router.delete("/fecha/{fechaReg}", status_code=status.HTTP_204_NO_CONTENT)
-async def eliminarRegistroDiario(fechaReg: str):
+@router.delete("/{idSemanal}", status_code=status.HTTP_204_NO_CONTENT)
+async def eliminarRegistroSemanal(idSemanal: str):
 
-    resultado = db_client.local.diarios.delete_many({"fechaReg": fechaReg})
+    resultado = db_client.local.semanal.delete_one({"_id": ObjectId(idSemanal)})
 
     if resultado.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="No se ha encontrado registro en esa fecha para eliminar")
-
-    return
+                            detail="No se ha encontrado registro con ese id para eliminar")
 
 
 

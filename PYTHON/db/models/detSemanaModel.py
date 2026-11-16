@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 class DataHabitoSemana(BaseModel):
     habito: str

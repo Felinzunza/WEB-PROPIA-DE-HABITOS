@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import habitoRouter, diarioRouter
+from routers import habitoRouter, diarioRouter, semanalRouter
 
 
 
@@ -26,6 +26,7 @@ app.add_middleware(
 
 app.include_router(habitoRouter.router)
 app.include_router(diarioRouter.router)
+app.include_router(semanalRouter.router)
 
 @app.get('/')
 async def roof():  #cada vez que se llama a un servidor se usa asincronia

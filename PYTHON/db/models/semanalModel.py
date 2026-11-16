@@ -18,8 +18,6 @@ class DiasSemana(BaseModel):
     domingo: Optional[Union[bool, float]] = None
 
 class DetalleSemana(BaseModel):
-    idDetSemanal: str | None = None 
-    idSemanal: str | None = None
     data: DataHabitoSemana
     diasSemana: DiasSemana
     totalDias_Horas: Union[bool, float]      # true o false
@@ -27,7 +25,7 @@ class DetalleSemana(BaseModel):
 
 
 class historialSemanal(BaseModel):
-    idHistorial: str
+    idSemanal: Optional[str] = None
     fechaInicio: str
     fechaFin: str
     porcSemHabito: float
