@@ -3,6 +3,8 @@ from bson import ObjectId
 from datetime import datetime
 from db.schemas.semanalSchema import semanales_schema, semanal_schema
 from db.models.semanalModel import historialSemanal
+from service.semanalService import  procesar_reporte_semanal, semana_cerrada
+                                    
 
 from db.client import db_client
 
@@ -18,7 +20,6 @@ def searchSemana(field: str, key:str):
     if not semanal:
         return None
     return semanal_schema(semanal)
-  
 
 
 
@@ -67,6 +68,51 @@ async def obtenerRegistroSemanalxRangoSemanal(fechaInicio: str, fechaFin: str):
     return semanales_schema(list_rangos)
 
 
+@router.get("/en_curso", status_code=status.HTTP_200_OK)
+async def obtener_reporte_semanal_en_curso(fechaInicio: str, fechaFin: str):
+    formato_fecha = "%d-%m-%Y"
+
+    try:
+        dt_inicio = datetime.strptime(fechaInicio, formato_fecha)
+        dt_fin = datetime.strptime(fechaFin, formato_fecha)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="El formato de fecha debe ser dd-mm-yyyy (ejemplo: 28-09-2026)"
+        )
+
+    if dt_inicio > dt_fin:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La fecha de inicio no puede ser mayor a la fecha de fin"
+        )
+
+    todos_diarios = list(db_client.local.diarios.find())
+    diarios_rango = [
+        doc for doc in todos_diarios
+        if doc.get("fechaReg")
+        and dt_inicio <= datetime.strptime(doc["fechaReg"], formato_fecha) <= dt_fin
+    ]
+
+    habitos_docs = list(db_client.local.habitos.find())
+    metas_por_habito = {}
+
+    for h in habitos_docs:
+        data_habito = h.get("data") or {}
+        nombre_habito = data_habito.get("habito")
+        if nombre_habito:
+            metas_por_habito[nombre_habito] = h.get("metSem", 0.0)
+
+    return procesar_reporte_semanal(
+        fecha_inicio=fechaInicio,
+        fecha_fin=fechaFin,
+        diarios=diarios_rango,
+        semana_id=None,
+        ahora=datetime.now(),
+        metas_por_habito=metas_por_habito,
+    )
+  
+
 @router.get("/semana/{idSemanal}", status_code=status.HTTP_200_OK)
 async def obtenerDetalleSemanal(idSemanal: str):
     detalle = db_client.local.semanal.find_one({"_id": ObjectId(idSemanal)})
@@ -76,11 +122,15 @@ async def obtenerDetalleSemanal(idSemanal: str):
     #Necesito obtener el detalle de la semana al hacer click en el boton de ver detalle, para eso necesito el id del registro semanal y con eso buscar en la base de datos el registro correspondiente y devolverlo al front-end
 
     return semanal_schema(detalle)
-    
+
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 async def guardarRegistroSemanal(semanal: historialSemanal):
+
+    semanal.model_dump(exclude={"idSemanal"})
+
+   
 
     if searchSemana("fechaInicio", semanal.fechaInicio) is not None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,

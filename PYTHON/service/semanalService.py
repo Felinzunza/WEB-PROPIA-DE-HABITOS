@@ -1,9 +1,8 @@
-from time import time
 
 from fastapi import HTTPException
 
 from db.schemas.semanalSchema import semanal_schema
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 
 def parsear_fecha(fecha: str):
 
@@ -31,8 +30,9 @@ def rango_semanal(fecha_inicio: str):
 
 Dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
 
-def agrupar_por_habito(diarios: list[dict]) -> dict:
+def agrupar_por_habito(diarios: list[dict], metas_por_habito: dict | None = None) -> dict:
     habitos_agrupados = {}
+    metas = metas_por_habito or {}
 
     for diario in diarios:
         fecha = parsear_fecha(diario["fechaReg"])
@@ -58,6 +58,7 @@ def agrupar_por_habito(diarios: list[dict]) -> dict:
                         "unidad": unidad,
                     },
                     "diasSemana": {d: None for d in Dias},
+                    "metSem": metas.get(habito, 0.0),
                     "totalDias_Horas": 0,
                     "porcSemHabito": 0.0,
                 }
@@ -84,15 +85,15 @@ def calcular_dias_u_horas_semanales(dias_semana: dict) -> float:
 
 
 def calcular_porcentaje_semanal(total: float, met_sem: float | int | None) -> float:
-    if not met_sem or met_sem <= 0:
+    if met_sem is None:
         return 0.0
-
     try:
-        porcentaje = (total / float(met_sem)) * 100
-
+        meta_num = float(met_sem)
+        if meta_num <= 0:
+            return 0.0
+        porcentaje = (total / meta_num) * 100
         return round(min(porcentaje, 100.0), 2)
-    
-    except (ValueError, ZeroDivisionError):
+    except (ValueError, TypeError, ZeroDivisionError):
         return 0.0
     
 
@@ -176,8 +177,9 @@ def procesar_reporte_semanal(
     diarios: list[dict],
     semana_id: str | None = None,
     ahora: datetime | None = None,
+    metas_por_habito: dict | None = None,
 ) -> dict:
-    habitos_agrupados = agrupar_por_habito(diarios) 
+    habitos_agrupados = agrupar_por_habito(diarios, metas_por_habito=metas_por_habito) 
     esta_cerrada = semana_cerrada(fecha_fin, ahora)
 
     id_semana = semana_id if esta_cerrada else None
@@ -193,3 +195,21 @@ def procesar_reporte_semanal(
         pass
 
     return documento
+
+
+
+
+def preparar_documento_para_guardar(reporte: dict) -> dict:
+    return {
+        "fechaInicio": reporte["fechaInicio"],
+        "fechaFin": reporte["fechaFin"],
+        "porcSemGeneral": reporte["porcSemGeneral"],
+        "listDetalleSemanal": reporte["listDetalleSemanal"],
+    }
+
+def rango_semana_anterior(fecha_referencia: datetime | None = None) -> tuple[str, str]:
+    base = fecha_referencia or datetime.now()
+    lunes_actual = base - timedelta(days=base.weekday())
+    lunes_anterior = lunes_actual - timedelta(days=7)
+    domingo_anterior = lunes_anterior + timedelta(days=6)
+    return lunes_anterior.strftime("%d-%m-%Y"), domingo_anterior.strftime("%d-%m-%Y")

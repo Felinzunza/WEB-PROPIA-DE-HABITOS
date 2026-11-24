@@ -18,6 +18,7 @@ def detalle_semana_schema(detalle) -> dict:
             "sabado": dias.get("sabado", None),
             "domingo": dias.get("domingo", None)
         },
+        "metSem": detalle.get("metSem", 0),
         "totalDias_Horas": detalle.get("totalDias_Horas", 0),
         "porcSemHabito": detalle.get("porcSemHabito", 0.0)
     }
